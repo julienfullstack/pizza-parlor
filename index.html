@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <title>Pizza Order</title>
+  </head>
+  <body>
+      <h1>Pizza Order Form</h1>
+      <form>
+          <h2>Select Pizza Size</h2>
+          <input type="radio" id="personal" name="size" value="personal">
+          <label for="personal">Personal</label><br>
+          <input type="radio" id="large" name="size" value="large">
+          <label for="large">Large</label><br>
+  
+          <h2>Select Toppings</h2>
+          <input type="checkbox" id="olives" name="topping" value="olives">
+          <label for="olives">Olives</label><br>
+          <input type="checkbox" id="sausage" name="topping" value="sausage">
+          <label for="sausage">Sausage</label><br>
+          <input type="checkbox" id="pepperoni" name="topping" value="pepperoni">
+          <label for="pepperoni">Pepperoni</label><br>
+          <input type="checkbox" id="peppers" name="topping" value="peppers">
+          <label for="peppers">Peppers</label><br>
+          <input type="checkbox" id="mushrooms" name="topping" value="mushrooms">
+          <label for="mushrooms">Mushrooms</label><br>
+
+          <h2>Selected options:</h2>
+          <p id="selected"></p>
+          <h2>Order Total</h2>
+          <p id="total">$0.00</p>
+
+
+          <h2>Cart</h2>
+          <div id="cart"></div>
+  
+          <button type="button" onclick="addToCart()">Add to Cart</button>
+
+          
+      </form>
+  </body>
+  </html>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
