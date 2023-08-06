@@ -21,9 +21,10 @@ PizzaOrder.prototype.orderCost = function() {
 document.querySelector('form').addEventListener('change', function(event) {
   const size = document.querySelector('input[name="size"]:checked').value;
   const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(topping => topping.value);
+  const selectedToppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(topping => topping.getAttribute("id"));
 
   const selectedOptions = document.querySelector("#selected");
-  selectedOptions.textContent = "Size: " + size + ", Toppings: " + toppings.join(", ");
+  selectedOptions.textContent = "Size: " + size + ", Toppings: " + selectedToppings.join(", ");
 
   let newPizza = new PizzaOrder(toppings, size);
   const orderCost = newPizza.orderCost();
