@@ -5,12 +5,12 @@ function PizzaOrder(toppings, size) {
 }
 
 PizzaOrder.prototype.orderCost = function() {
-  if (this.size === "personal") {
+  if (this.size === "Personal") {
     this.cost += 15;
-  } else if (this.size === "large") {
+  } else if (this.size === "Large") {
     this.cost += 20;
   }
-  
+
   this.toppings.forEach(function(topping) {
     this.cost += parseFloat(topping);
   }, this);
@@ -18,22 +18,21 @@ PizzaOrder.prototype.orderCost = function() {
   return this.cost;
 };
 
-function handleForm(event) {
+document.querySelector('form').addEventListener('change', function(event) {
   const size = document.querySelector('input[name="size"]:checked').value;
   const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(topping => topping.value);
-  
-  let newPizza = new PizzaOrder(toppings, size);
-  newPizza.orderCost();
 
   const selectedOptions = document.querySelector("#selected");
-  selectedOptions.append("Size: " + size + "Toppings: " + toppings);
-  document.body.append(selectedOptions);
+  selectedOptions.textContent = "Size: " + size + ", Toppings: " + toppings.join(", ");
 
-  const cost = document.querySelector("#total);
-  cost.append("Total: $ " + cost);
-  document.body.append(cost);
-}
+  let newPizza = new PizzaOrder(toppings, size);
+  const orderCost = newPizza.orderCost();
+  const totalCost = document.querySelector("#total");
+  totalCost.textContent = "Total: $" + orderCost.toFixed(2);
+});
 
-window.addEventListener("load", function() {
-  this.document.querySelector("form").addEventListener("submit", handleForm)
+window.addEventListener("DOMContentLoaded", function() {
+  document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+  });
 });
