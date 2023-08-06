@@ -1,43 +1,37 @@
-// Business logic
-
-function PizzaOrder() {
+function PizzaOrder(toppings, size) {
   this.toppings = toppings;
   this.size = size;
   this.cost = 0;
 }
 
-Pizza.prototype.determineCost = function() {
-  if (this.size === "medium") {
+PizzaOrder.prototype.orderCost = function() {
+  if (this.size === "personal") {
     this.cost += 15;
-  } else {
+  } else if (this.size === "large") {
     this.cost += 20;
-  };
+  }
   
-  this.cost += this.toppings.value;
+  this.toppings.forEach(function(topping) {
+    this.cost += parseFloat(topping);
+  }, this);
 
   return this.cost;
 };
 
-// UI LOGIC // 
-
-const size = document.querySelector('input[name="size"]:checked').value;
-const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(topping => topping.value);
-
-
-
-function handleForm() {
-  event.preventDefault();
-  const size = document.querySelector('input[name="size"]:checked');
+function handleForm(event) {
+  const size = document.querySelector('input[name="size"]:checked').value;
   const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(topping => topping.value);
+  
+  let newPizza = new PizzaOrder(toppings, size);
+  newPizza.orderCost();
 
-  var pizzaOrder = new PizzaOrder();
+  const selectedOptions = document.querySelector("#selected");
+  selectedOptions.append("Size: " + size + "Toppings: " + toppings);
+  document.body.append(selectedOptions);
 
-  const cartItem = document.createElement('div');
-  cartItem.classList.add('cart-item');
-  cartItem.textContent = `${size} Pizza with ${toppings.join(', ')} Toppings`;
-
-  const selectedOptions = document.getElementById('selected-options');
-
+  const cost = document.querySelector("#total);
+  cost.append("Total: $ " + cost);
+  document.body.append(cost);
 }
 
 window.addEventListener("load", function() {
