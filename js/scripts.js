@@ -1,70 +1,45 @@
 // Business logic
 
 function PizzaOrder() {
-  this.pizza= [],
-  this.currentId = 0
+  this.toppings = toppings;
+  this.size = size;
+  this.cost = 0;
 }
 
-function Pizza(toppings,size) {
-  this.toppings = toppings,
-  this.size = size,
-}
-
-PizzaOrder.prototype.assignId = function() {
-  this.currentId += 1;
-  return this.currentId;
-}
-
-PizzaOrder.prototype.addpizza = function(pizza) {
-  pizza.id = this.assignId();
-  this.pizzas.push(pizza);
-}
-
-PizzaOrder.prototype.findpizza = function(id) {
-  for (var i=0; i< this.pizzas.length; i++) {
-    if (this.pizzas[i]) {
-      if (this.pizzas[i].id == id) {
-        return this.pizzas[i];
-      }
-    }
+Pizza.prototype.determineCost = function() {
+  if (this.size === "medium") {
+    this.cost += 15;
+  } else {
+    this.cost += 20;
   };
-  return false;
-}
+  
+  this.cost += this.toppings.value;
 
-PizzaOrder.prototype.deletepizza = function(id) {
-  for (var i=0; i< this.pizzas.length; i++) {
-    if (this.pizzas[i]) {
-      if (this.pizzas[i].id == id) {
-        delete this.pizzas[i];
-        return true;
-      }
-    }
-  };
-  return false;
-}
-
+  return this.cost;
+};
 
 // UI LOGIC // 
-
-const pizzaOrder = new PizzaOrder();
-
 
 const size = document.querySelector('input[name="size"]:checked').value;
 const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(topping => topping.value);
 
 
-function addToCart() {
-  const size = document.querySelector('input[name="size"]:checked').value;
+
+function handleForm() {
+  event.preventDefault();
+  const size = document.querySelector('input[name="size"]:checked');
   const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(topping => topping.value);
 
-  
+  var pizzaOrder = new PizzaOrder();
 
   const cartItem = document.createElement('div');
   cartItem.classList.add('cart-item');
   cartItem.textContent = `${size} Pizza with ${toppings.join(', ')} Toppings`;
 
+  const selectedOptions = document.getElementById('selected-options');
 
-  const cart = document.getElementById('cart');
-  cart.appendChild(cartItem);
 }
 
+window.addEventListener("load", function() {
+  this.document.querySelector("form").addEventListener("submit", handleForm)
+});
